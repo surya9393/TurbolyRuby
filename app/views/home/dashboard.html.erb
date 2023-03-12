@@ -1,3 +1,55 @@
+<% if user_signed_in? %>
+    <div class="container text-center mt-5">
+
+        <form action="/task/search" method="get">
+            <div class="input-group mb-3">
+                <input
+                type="text"
+                name="search"
+                id="search"
+                class="form-control"
+                placeholder="Search..."
+                aria-label="Recipient's username"
+                aria-describedby="button-addon2"
+                />
+                <input type="submit" class="btn btn-submit">
+            </div>
+        </form>
+        <h1>Tugas Kamu</h1>
+        <div class="row mt-5">
+            <% @getTask.each do |value| %>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="card mb-4">
+                        <h2 class="mt-5">Tugas <%= @no = @no+1 %></h2>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-start">
+                                <h5 class="card-title"><%= value.title %></h5>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <p class="card-text"><%= value.desc %></p>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <% if value.isDone == true %>
+                                <span class="badge rounded-pill badge-success">Selesai</span>
+                                <% else %>
+                                <span class="badge rounded-pill badge-danger">Belum Selesai</span>
+                                <% end %>
+                            </div>
+                            <div class="d-flex justify-content-end mt-1 mb-3">
+                                <p class="card-text">Batas : <%= localize(value.deadline, :format => :long) %></p>
+                            </div>
+                            <div class="d-flex justify-content-center gap-2">
+                                <a href="/task/details/<%= value.id %>" class="btn btn-primary">Detail</a>
+                                <a href="/task/delete/<%= value.id %>" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+<% else %>
 <h1>
-    Dashboard
+    LOGIN DULU
 </h1>
+<% end %>

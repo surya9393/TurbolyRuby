@@ -20,89 +20,144 @@
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
       rel="stylesheet"/>
+    <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
   </head>
 
   <body>
     <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <!-- Container wrapper -->
-  <div class="container">
-    <!-- Navbar brand -->
-    <a class="navbar-brand me-2" href="https://mdbgo.com/">
-      <img
-        src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-        height="16"
-        alt="MDB Logo"
-        loading="lazy"
-        style="margin-top: -1px;"
-      />
-    </a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="--mdb-bg-opacity: 0.5;">
+      <!-- Container wrapper -->
+      <div class="container">
+        <!-- Navbar brand -->
+        <a class="navbar-brand me-2" href="/">
+          <%= image_tag "logo.png", height: 30 %>
+          <!-- <img
+            src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+            height="16"
+            alt="MDB Logo"
+            loading="lazy"
+            style="margin-top: -1px;"
+          /> -->
+        </a>
 
-    <!-- Toggle button -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-mdb-toggle="collapse"
-      data-mdb-target="#navbarButtonsExample"
-      aria-controls="navbarButtonsExample"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <i class="fas fa-bars"></i>
-    </button>
+        <!-- Toggle button -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-mdb-toggle="collapse"
+          data-mdb-target="#navbarButtonsExample"
+          aria-controls="navbarButtonsExample"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
 
-    <!-- Collapsible wrapper -->
-    <div class="collapse navbar-collapse" id="navbarButtonsExample">
-      <!-- Left links -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Dashboard</a>
-        </li>
-      </ul>
-      <!-- Left links -->
-      <% if user_signed_in? %>
-      <div class="d-flex align-items-center">
-        <a href="/users/sign_out" class="btn btn-link px-3 me-2">Log Out</a>
-        <a href="/users/edit" class="btn btn-primary me-2"><%= current_user.email %></a>
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarButtonsExample">
+          <!-- Left links -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          </ul>
+          <!-- Left links -->
+          <% if user_signed_in? %>
+          <div class="d-flex align-items-center gap-1">
+            <a class="btn btn-secondary px-3 me-2"" href="/">Home</a>
+            <a class="btn btn-secondary px-3 me-2"" href="/dashboard">Dashboard</a>
+            <a class="btn btn-secondary px-3 me-2"" href="/task"><i class="fa-solid fa-plus"></i> Tugas</a>
+            <div class="dropdown">
+              <button
+                class="btn btn-primary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fa-solid fa-user"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a href="/users/edit" class="dropdown-item"><%= current_user.email %></a></li>
+                <li><a href="/users/sign_out" class="dropdown-item">Log Out</a></li>
+                <li><a class="dropdown-item" href="#">About Me</a></li>
+              </ul>
+            </div>
+
+          </div>
+          <% else %>
+          <div class="d-flex align-items-center">
+            <a class="btn btn-secondary px-3 me-2"" href="/">Home</a>
+            <a href="#" class="btn btn-secondary px-3 me-2" data-mdb-toggle="modal" data-mdb-target="#loginModal">Login</a>
+            <!-- Modal -->
+            <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body m-3">
+                    <form action="/users/sign_in" method="post">
+                      <div class="form-outline mb-3">
+                        <input type="email" id="user_email" name="user[email]" class="form-control" />
+                        <label class="form-label" for="user_email">Email</label>
+                      </div>
+                      <div class="form-outline mb-1">
+                        <input type="password" id="typePassword" name="user[password]" class="form-control"/>
+                        <label class="form-label" for="typePassword">Password</label>
+                      </div>
+                      <input type="checkbox" onclick="myFunction()"> Show Password
+                      <div class="d-flex justify-content-end">
+                        <input type="submit" class="btn btn-submit" value="Submit">
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a href="/users/sign_up" class="btn btn-primary me-2">Register</a>
+          </div>
+          <% end %>
+        </div>
+        <!-- Collapsible wrapper -->
       </div>
-      <% else %>
-      <div class="d-flex align-items-center">
-        <a href="/users/sign_in" class="btn btn-link px-3 me-2">Login</a>
-        <a href="/users/sign_up" class="btn btn-primary me-2">Register</a>
-      </div>
-      <% end %>
-    </div>
-    <!-- Collapsible wrapper -->
-  </div>
-  <!-- Container wrapper -->
-</nav>
-<!-- Navbar -->
+      <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
 
-
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-
-    <% if user_signed_in? %>
-      <%= current_user.email %>
-      <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
-      <%= link_to 'Account Settings', edit_user_registration_path %>
-    <% else %>
-      <%= link_to 'Log in', new_user_session_path %>
-      <%= link_to 'Sign up', new_user_registration_path %>
-    <% end %>
+    <!-- <input type="text" id="datepicker"> -->
     <%= yield %>
     <!-- MDB -->
     <script
     type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js">
     </script>
+    <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script>
+      function myFunction() {
+        var x = document.getElementById("typePassword");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+      }
+    </script>`
+    <script>
+      $( function() {
+        $( "#datepicker" ).datepicker();
+      } );
+    </script>
     <% if notice %>
     <script>
       swal("<%= notice %>", "<%= alert %>", "success");
     </script>
-    <% else %>
+    <% end %>
+    <% if alert %>
+    <script>
+      swal("<%= notice %>", "<%= alert %>", "error");
+    </script>
     <% end %>
   </body>
 </html>

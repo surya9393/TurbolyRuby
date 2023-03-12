@@ -1,0 +1,43 @@
+<% @task.each do |value| %>
+    <div class="container mt-5">
+        <div class="card text-center">
+            <div class="card-header">Details</div>
+            <div class="card-body">
+            <h5 class="card-title"><%= value.title %></h5>
+            <p class="card-text"><%= value.desc %></p>
+            <a href="/dashboard" class="btn btn-primary btn-md" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Kembali"><i class="fa-solid fa-arrow-left"></i></a>
+            <a href="#" class="btn btn-warning btn-md" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Edit data"><i class="fa-solid fa-pen-to-square"></i></a>
+            <a href="/task/delete/<%= value.id %>" class="btn btn-danger btn-md" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Delete data"><i class="fa-solid fa-trash"></i></a>
+            </div>
+            <div class="card-footer text-muted">Batas : <%= localize(value.deadline, :format => :long) %></div>
+        </div>
+    </div>
+<% end %>
+
+<!-- Modal -->
+<!-- <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body m-3">
+                <form action="/users/sign_in" method="post">
+                    <div class="form-outline mb-3">
+                        <input type="email" id="user_email" name="user[email]" class="form-control" />
+                        <label class="form-label" for="user_email">Email</label>
+                    </div>
+                    <div class="form-outline mb-1">
+                        <input type="password" id="typePassword" name="user[password]" class="form-control"/>
+                        <label class="form-label" for="typePassword">Password</label>
+                    </div>
+                        <input type="checkbox" onclick="myFunction()"> Show Password
+                    <div class="d-flex justify-content-end">
+                        <input type="submit" class="btn btn-submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->
